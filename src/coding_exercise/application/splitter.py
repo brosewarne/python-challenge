@@ -12,19 +12,18 @@ class Splitter:
             raise ValueError('`times` must be less than `cable_length - 1` or the segment lengths will be less than 0.')
 
     def split(self, cable: Cable, times: int) -> list[Cable]:
-        cable_length: int = cable.length
-        self.__validate(cable_length, times)
+        self.__validate(cable.length, times)
 
         # the minimum number of segments we get from the first `times` cuts
         min_segments: int = times + 1
 
         # the maximum length of the segments to the lowest int given the length and minimum number of segments
-        max_segment_length: int = cable_length // min_segments
+        max_segment_length: int = cable.length // min_segments
 
         # create the cables from the first `times` cuts
         cables: list[Cable] = [Cable(max_segment_length, f'{cable.name}-{_:02}') for _ in range(min_segments)]
 
-        remainder: int = cable_length % min_segments
+        remainder: int = cable.length % min_segments
         if remainder == 0:
             # exit early if there's no remainder and no more work to do
             return cables
