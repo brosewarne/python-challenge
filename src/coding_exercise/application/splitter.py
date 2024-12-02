@@ -23,12 +23,8 @@ class Splitter:
         # create the cables from the first `times` cuts
         cables: list[Cable] = [Cable(max_segment_length, f'{cable.name}-{_:02}') for _ in range(min_segments)]
 
-        remainder: int = cable.length % min_segments
-        if remainder == 0:
-            # exit early if there's no remainder and no more work to do
-            return cables
-
         # for the remaining cable, get as many segments of `max_segment_length` as we can
+        remainder: int = cable.length % min_segments
         while remainder >= max_segment_length:
             cables.append(Cable(max_segment_length, f'{cable.name}-{len(cables):02}'))
             remainder -= max_segment_length
